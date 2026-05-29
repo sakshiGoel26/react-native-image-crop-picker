@@ -83,10 +83,11 @@ class PickerModule extends ReactContextBaseJavaModule implements ActivityEventLi
     private boolean enableRotationGesture = false;
     private boolean disableCropperColorSetters = false;
     private boolean useFrontCamera = false;
+    private boolean cropperStatusBarLight = true;
+    private boolean cropperNavigationBarLight = false;
     private ReadableMap options;
 
     private String cropperActiveWidgetColor = null;
-    private String cropperStatusBarColor = null;
     private String cropperToolbarColor = null;
     private String cropperToolbarTitle = null;
     private String cropperToolbarWidgetColor = null;
@@ -127,7 +128,6 @@ class PickerModule extends ReactContextBaseJavaModule implements ActivityEventLi
         height = options.hasKey("height") ? options.getInt("height") : 0;
         cropping = options.hasKey("cropping") && options.getBoolean("cropping");
         cropperActiveWidgetColor = options.hasKey("cropperActiveWidgetColor") ? options.getString("cropperActiveWidgetColor") : null;
-        cropperStatusBarColor = options.hasKey("cropperStatusBarColor") ? options.getString("cropperStatusBarColor") : null;
         cropperToolbarColor = options.hasKey("cropperToolbarColor") ? options.getString("cropperToolbarColor") : null;
         cropperToolbarTitle = options.hasKey("cropperToolbarTitle") ? options.getString("cropperToolbarTitle") : null;
         cropperToolbarWidgetColor = options.hasKey("cropperToolbarWidgetColor") ? options.getString("cropperToolbarWidgetColor") : null;
@@ -139,6 +139,8 @@ class PickerModule extends ReactContextBaseJavaModule implements ActivityEventLi
         enableRotationGesture = options.hasKey("enableRotationGesture") && options.getBoolean("enableRotationGesture");
         disableCropperColorSetters = options.hasKey("disableCropperColorSetters") && options.getBoolean("disableCropperColorSetters");
         useFrontCamera = options.hasKey("useFrontCamera") && options.getBoolean("useFrontCamera");
+        cropperStatusBarLight = options.hasKey("cropperStatusBarLight") ? options.getBoolean("cropperStatusBarLight") : true;
+        cropperNavigationBarLight = options.hasKey("cropperNavigationBarLight") ? options.getBoolean("cropperNavigationBarLight") : false;
         this.options = options;
     }
 
@@ -694,13 +696,12 @@ class PickerModule extends ReactContextBaseJavaModule implements ActivityEventLi
             options.setToolbarColor(Color.parseColor(cropperToolbarColor));
         }
 
-        if (cropperStatusBarColor != null) {
-            options.setStatusBarColor(Color.parseColor(cropperStatusBarColor));
-        }
-
         if (cropperToolbarWidgetColor != null) {
             options.setToolbarWidgetColor(Color.parseColor(cropperToolbarWidgetColor));
         }
+
+        options.setStatusBarLight(cropperStatusBarLight);
+        options.setNavigationBarLight(cropperNavigationBarLight);
     }
 
     private void startCropping(final Activity activity, final Uri uri) {
