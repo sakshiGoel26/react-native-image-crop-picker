@@ -10,8 +10,11 @@ def safeExtGet(prop, fallback) {
 }
 
 android {
+    namespace "com.reactnative.ivpusic.imagepicker"
     compileSdkVersion rootProject.hasProperty('compileSdkVersion') ? rootProject.compileSdkVersion : DEFAULT_COMPILE_SDK_VERSION
     buildToolsVersion rootProject.hasProperty('buildToolsVersion') ? rootProject.buildToolsVersion : DEFAULT_BUILD_TOOLS_VERSION
+
+
 
     buildTypes {
         debug {
